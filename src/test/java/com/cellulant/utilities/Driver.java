@@ -7,7 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Driver {
 
-    private static WebDriver obj;
+    private static WebDriver obj ;
 
     private Driver(){ }
 
@@ -17,12 +17,12 @@ public class Driver {
      */
     public static WebDriver getDriver(){
         // read the browser type you want to launch from properties file
-        String browserName = com.cellulant.utilities.ConfigReader.read("browser") ;
+        String browserName = ConfigReader.read("browser") ;
 
         if(obj == null){
 
             // according to browser type set up driver correctly
-            switch (browserName.toLowerCase()){
+            switch (browserName ){
                 case "chrome" :
                     WebDriverManager.chromedriver().setup();
                     obj = new ChromeDriver();
@@ -36,17 +36,19 @@ public class Driver {
                     obj = null ;
                     System.out.println("UNKNOWN BROWSER TYPE!!! " + browserName);
             }
-            obj.manage().window().maximize();
+            return obj ;
+
+
+
+        }else{
+//            System.out.println("You have it just use existing one");
+            return obj ;
 
         }
-        return obj ;
 
     }
 
-    /**
-     * Quitting the browser and setting the value of
-     * WebDriver instance to null because you can re-use already quitted driver
-     */
+
     public static void closeBrowser(){
 
         if(obj != null ){
@@ -56,4 +58,5 @@ public class Driver {
         }
 
     }
+
 }

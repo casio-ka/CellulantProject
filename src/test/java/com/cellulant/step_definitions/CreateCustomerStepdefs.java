@@ -1,6 +1,7 @@
 package com.cellulant.step_definitions;
 
 import com.cellulant.pages.AddCustomer;
+import com.cellulant.utilities.BrowserUtil;
 import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -11,36 +12,41 @@ public class CreateCustomerStepdefs {
 
     AddCustomer addCustomer;
 
-    @Given("the user is on the login page")
+    @Given("user is on the login page")
     public void theUserIsOnTheLoginPage() {
         addCustomer = new AddCustomer();
 
         addCustomer.goTo();
+        BrowserUtil.waitFor(1);
 
     }
 
-    @When("the user clicks the bank manager login")
+    @When("user clicks the bank manager login button")
     public void theUserClicksTheBankManagerLogin() {
 
         addCustomer = new AddCustomer();
         addCustomer.bankManagerLogin();
+        BrowserUtil.waitFor(1);
     }
 
-    @And("the user clicks add customer button")
+    @And("user clicks add customer button")
     public void theUserClicksAddCustomerButton() {
 
         addCustomer = new AddCustomer();
         addCustomer.newCustomer();
+        BrowserUtil.waitFor(1);
         
     }
 
-    @Then("the user can add a new customer")
+    @Then("user can add a new customer")
     public void theUserCanAddANewCustomer() {
         addCustomer = new AddCustomer();
 
         Faker faker = new Faker();
 
         addCustomer.addNewCustomer(faker.name().firstName(),faker.name().lastName(),faker.address().zipCode());
+        BrowserUtil.waitFor(2);
+
 
 
     }

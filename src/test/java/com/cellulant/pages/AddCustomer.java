@@ -1,25 +1,32 @@
 package com.cellulant.pages;
 
+import com.cellulant.utilities.BrowserUtil;
 import com.cellulant.utilities.ConfigReader;
 import com.cellulant.utilities.Driver;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 public class AddCustomer {
 
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[1]/div[2]/button" )
+    @FindBy(xpath = "//button[@ng-click=\"manager()\"]")
     public WebElement loginButton;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[1]/button[1]")
+    @FindBy(xpath = "//button[@ng-click=\"addCust()\"]")
     public WebElement addCustomerButton;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/div/form/div[1]/input")
+    @FindBy(xpath = "//input[@ng-model=\"fName\"]")
     public WebElement firstName;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/div/form/div[2]/input")
+    @FindBy(xpath = "//input[@ng-model=\"lName\"]")
     public WebElement lastName;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/div/form/div[3]/input")
+    @FindBy(xpath = "//input[@ng-model=\"postCd\"]")
     public WebElement postCode;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/div/form/button")
+    @FindBy(xpath = "//button[.=\"Add Customer\"]")
     public WebElement addCustomer;
+
+
 
 
 
@@ -43,10 +50,17 @@ public class AddCustomer {
         postCode.sendKeys(post);
 
         addCustomer.click();
+
+        Alert alert = Driver.getDriver().switchTo().alert();
+
+        assertTrue(alert.getText().startsWith("Customer"));
+
+        BrowserUtil.waitFor(1);
+
+        alert.accept();
+
+
     }
-
-
-
 
 
 }
